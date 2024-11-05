@@ -30,6 +30,7 @@ public class OnTriggers : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+
     }
 
     private void Start()
@@ -59,7 +60,6 @@ public class OnTriggers : MonoBehaviour
 
             kamera.transform.DOShakeRotation(0.4f, Vector3.one * 0.2f, 90);
         }
-
         if (other.gameObject.CompareTag("Buff"))
         {
             if (hp != 100)
@@ -68,12 +68,10 @@ public class OnTriggers : MonoBehaviour
                 hptext.text = hp + "";
             }
         }
-
         if (other.gameObject.CompareTag("Coin"))
         {
             coincount++;
-            PlayerPrefs.SetInt("Currentcoin", coincount);
-            cointext.text = PlayerPrefs.GetInt("Currentcoin") + "";
+            cointext.text = coincount + "";
         }
 
         if (hp >= 50)
@@ -84,7 +82,6 @@ public class OnTriggers : MonoBehaviour
         {
             hptext.color = Color.red;
         }
-
         if (other.gameObject.CompareTag("VictoryLine"))
         {
             UIManager.Instance.ShowPanel(PanelType.Win);

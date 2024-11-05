@@ -13,7 +13,6 @@ public class UIManager : MonoSingleton<UIManager>
     private void Start()
     {
          currentLevelText.text = "LEVEL " + (PlayerPrefs.GetInt("levelkey") + 1);
-         currentGoldText.text = "" + PlayerPrefs.GetInt("Currentcoin");
     }
     public void ShowPanel(PanelType panelType, bool hideOthers = true)
     {
@@ -55,10 +54,8 @@ public class UIManager : MonoSingleton<UIManager>
     {
         if (OnTriggers.coincount >= 7)
         {
-            
             OnTriggers.coincount -= 7;
             OnTriggers.Damage = 15;
-           
         }
    
     }

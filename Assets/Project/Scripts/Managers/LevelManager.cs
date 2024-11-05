@@ -46,12 +46,14 @@ public class LevelManager : MonoSingleton<LevelManager>
     }
     public void NextLevel()
     {
+        PlayerPrefs.SetInt("Currentcoin", OnTriggers.coincount);
         SaveLevel();
         SceneManager.LoadScene(0);
         OnTriggers.gameOver = false;
     }
     public void RestartLevel()
     {
+        OnTriggers.coincount = PlayerPrefs.GetInt("Currentcoin");
         OnTriggers.restart = false;
         SceneManager.LoadScene(0);
     }

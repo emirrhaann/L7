@@ -14,6 +14,7 @@ namespace MainController
         void Start()
         {
             animator = GetComponent<Animator>();
+            
             tapped = false;
             TapInputEnable();
         }
@@ -23,6 +24,8 @@ namespace MainController
             InputPanel.Instance.OnPointerUpEvent.AddListener(TapUp);
             InputPanel.Instance.OnDragDelta.AddListener(OnDragDelta);
         }
+
+     
         private void OnDragDelta(Vector2 delta)
         {
             if (delta.x >= 3.98f)
@@ -44,18 +47,19 @@ namespace MainController
             if (tapped == false)
             {
                 UIManager.Instance.ShowPanel(PanelType.GamePlay);
-                
                 tapped = true;
-            } 
+            }
+            
         }
         private void TapUp()
         {
-            Debug.Log("Tap Ended!");
+            
         }
         public void StartMove()
         {
             transform.position += transform.forward * 0.1f;
-            animator.CrossFadeInFixedTime("Running", 0.2f);
+            animator.CrossFade("Running", 0f);
+
             
         }
         public void SideMove()
@@ -73,6 +77,7 @@ namespace MainController
             if (tapped == true && OnTriggers.restart == false && OnTriggers.gameOver == false)
             {
                 StartMove();
+
             }
             SideMove();
         }

@@ -7,10 +7,13 @@ using UnityEngine;
 
 public class PropMove : MonoBehaviour
 {
+  //  bool triggered = false;
     private void Start()
     {
         {
-            transform.DOMoveY(transform.position.y + 0.5f, 2f).SetEase(Ease.InOutQuad).SetLoops(-1, LoopType.Yoyo);
+            transform.DOMoveY(transform.position.y + 0.5f, 2f).SetEase(Ease.InOutQuad)
+                .SetLoops(-1, LoopType.Yoyo);
+            
         }
     }
 
@@ -22,19 +25,14 @@ public class PropMove : MonoBehaviour
 
     void OnTriggerEnter()
     {
-        GetComponent<BoxCollider>().enabled = false;
-        /*if (tag == "Coin")
-        {
-            transform.DOPath(new[] { transform.position, transform.position + new Vector3(-2, 2.5f, 10) }, .8f)
-                .SetEase(Ease.OutBack);
-        }*/
-
-        transform.DOPath(new[] { transform.position, transform.position + new Vector3(-1, -1, 1) }, .8f)
-            .SetEase(Ease.OutBack);
-        transform.DOScale(Vector3.one * 0, .8f).SetEase(Ease.InBack).OnComplete(Destroy);
+       // triggered = true;
+        transform.DOPath(new[] { transform.position, transform.position + new Vector3(-1, -1, 1) }, .8f);
+        transform.DOScale(Vector3.one * 1.5f, .8f).SetEase(Ease.OutElastic).OnComplete(Destroy);
+        
     }
 
     void Update()
     {
+        
     }
 }
