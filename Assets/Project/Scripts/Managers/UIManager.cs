@@ -55,20 +55,14 @@ public class UIManager : MonoSingleton<UIManager>
     {
         if (OnTriggers.coincount >= 7)
         {
+            
             OnTriggers.coincount -= 7;
             OnTriggers.Damage = 15;
+           
         }
    
     }
-
-    public void UpgradeDamage2()
-    {
-        if (OnTriggers.coincount >= 12)
-        {
-            OnTriggers.coincount -= 12;
-            OnTriggers.Damage = 10;
-        }
-    }
+    
 }
 [Serializable]
 public class Panel
