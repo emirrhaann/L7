@@ -10,6 +10,8 @@ using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AdaptivePerformance.VisualScripting;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 
@@ -112,8 +114,7 @@ public class OnTriggers : MonoBehaviour
             animator.CrossFade("VictoryAnimation", 0.1f);
             ShowBonus();
             Passed = true;   
-            Instantiate(spawner, player.transform.position, player.transform.rotation);
-
+            Instantiate(spawner, new Vector3(32.01f, 0.25f, 2.35f), Quaternion.Euler(0,0,0));
         }
     }
 

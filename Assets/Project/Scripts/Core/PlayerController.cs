@@ -35,7 +35,7 @@ namespace MainController
 
         private void OnDragDelta(Vector2 delta)
         {
-            if (tapped == false)
+            if (tapped == true)
             {
                 if (delta.x >= 3.98f)
                 {
@@ -123,7 +123,6 @@ namespace MainController
             {
                 StartMove();
             }
-
             SideMove();
         }
     }
