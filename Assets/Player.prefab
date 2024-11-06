@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1771113308317746945}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86cff2df56a5aa64e97549bf05201bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseposition: {x: 0, y: 0, z: 0}
+  attach: {fileID: 0}
 --- !u!95 &1771113308317746945
 Animator:
   serializedVersion: 5

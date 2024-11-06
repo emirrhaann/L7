@@ -9,6 +9,9 @@ TagManager:
   - Coin
   - VictoryLine
   - Level2Line
+  - FinishLine
+  - Enemy
+  - atah
   layers:
   - Default
   - TransparentFX

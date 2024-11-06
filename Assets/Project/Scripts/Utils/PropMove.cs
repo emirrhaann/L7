@@ -11,10 +11,14 @@ public class PropMove : MonoBehaviour
     private void Start()
     {
         {
-            transform.DOMoveY(transform.position.y + 0.5f, 2f).SetEase(Ease.InOutQuad)
-                .SetLoops(-1, LoopType.Yoyo);
-            
+            transform.DOScale(Vector3.one * 1, 0.7f).OnComplete(PropsMove);
         }
+    }
+
+    void PropsMove()
+    {
+        transform.DOMoveY(transform.position.y + 0.5f, 2f).SetEase(Ease.InOutQuad)
+            .SetLoops(-1, LoopType.Yoyo);
     }
 
 
@@ -26,7 +30,7 @@ public class PropMove : MonoBehaviour
     void OnTriggerEnter()
     {
        // triggered = true;
-        transform.DOPath(new[] { transform.position, transform.position + new Vector3(-1, -1, 1) }, .8f);
+        transform.DOPath(new[] { transform.position, transform.position + new Vector3(100, 100, 100) }, .8f);
         transform.DOScale(Vector3.one * 1.5f, .8f).SetEase(Ease.OutElastic).OnComplete(Destroy);
         
     }

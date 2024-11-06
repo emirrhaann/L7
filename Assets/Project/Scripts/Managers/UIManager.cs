@@ -77,6 +77,7 @@ public enum PanelType
     TapToPlay,
     GamePlay,
     Win,
-    Lose
+    Lose,
+    
     
 }
