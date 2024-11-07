@@ -15,7 +15,7 @@ namespace MainController
     {
         public RaycastHit hit;
         public bool control = false;
-        private Animator animator;
+        public Animator animator;
         public static bool tapped;
         public GameObject attach;
         public GameObject mermi;
@@ -23,7 +23,7 @@ namespace MainController
         public FloatingJoystick floatingJoystick;
         public Rigidbody rb;
 
-        void Start()
+        void Awake()
         {
             animator = GetComponent<Animator>();
             tapped = false;
@@ -86,7 +86,7 @@ namespace MainController
             }
             else
             {
-                transform.position = new Vector3(Mathf.Clamp(transform.position.x, 38.4f, 57f),
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x, 41.4f, 57f),
                     transform.position.y,
                     Mathf.Clamp(transform.position.z,
                         -10.5f,
@@ -97,10 +97,11 @@ namespace MainController
         }
         public IEnumerator Attack()
         {
-            animator.CrossFade("FireAnim", 0.065f);
-            yield return new WaitForSeconds(0.065f);
+            animator.CrossFade("FireAnim", 0.04f);
+            yield return new WaitForSeconds(0.05f);
+            animator.CrossFade("Running", 0.04f);
             Instantiate(mermi, attach.transform.position, attach.transform.rotation);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
             control = false;
         }
         void Update()
@@ -138,10 +139,10 @@ namespace MainController
             {
                 Vector3 direction = Vector3.right * floatingJoystick.Vertical +
                                     Vector3.forward * -floatingJoystick.Horizontal;
-                PlayerPrefs.SetFloat("lastdirection", direction.x);
-                transform.position += (direction * 0.06f);
+                transform.position += (direction * 0.14f);
                 direction.x += 0.25f;
                 transform.rotation = Quaternion.LookRotation(direction);
+                
             }
         }
     }

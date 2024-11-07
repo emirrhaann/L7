@@ -387,6 +387,7 @@
 "Assets/Project/Scripts/Utils/MonoSingleton.cs"
 "Assets/Project/Scripts/Utils/OnTriggers.cs"
 "Assets/Project/Scripts/Utils/PropMove.cs"
+"Assets/Project/Scripts/Utils/RewardPropMove.cs"
 "Assets/Project/Scripts/Utils/Spawners.cs"
 "Assets/Trash/TutorialInfo/Scripts/Readme.cs"
 -langversion:9.0

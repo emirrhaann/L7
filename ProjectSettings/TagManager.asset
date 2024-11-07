@@ -12,6 +12,7 @@ TagManager:
   - FinishLine
   - Enemy
   - atah
+  - RewardCoin
   layers:
   - Default
   - TransparentFX

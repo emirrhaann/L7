@@ -6,24 +6,32 @@ using MainController;
 using UnityEngine;
 using UnityEditor.UIElements;
 using UnityEngine.Animations;
+using Random = System.Random;
 
 public class Enemies : MonoBehaviour
 {
-    public GameObject player;
-    private int enemyhp = 3;
-    private IEnumerator MovementRoutine()
+    private GameObject player;
+    private int enemyhp = 1;
+    public float speed;
+    Animator animator;
+    public List<GameObject> drops = new List<GameObject>();
+    public GameObject reward;
+
+    private bool dead;
+    /*private IEnumerator MovementRoutine()
     {
         while (true)
         {
-            transform.position += transform.forward * Time.deltaTime;
+            
             yield return new WaitForFixedUpdate();
         }
-    }
-    void Start()
+    }*/
+    void Awake()
     {
+        animator = GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player");
         transform.LookAt(player.transform);
 
-        StartCoroutine(nameof(MovementRoutine));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,13 +39,32 @@ public class Enemies : MonoBehaviour
         enemyhp--;
         if (enemyhp == 0)
         {
-            Destroy(gameObject);
+            StartCoroutine(nameof(Death));
         }
     }
 
-    void lateupdate()
+    IEnumerator Death()
     {
-        transform.LookAt(player.transform);
+        dead = true;
+        animator.CrossFade("DeadAnim", 0.04f);
+        yield return new WaitForSeconds(2.3f);
+        Destroy(gameObject);
+        Instantiate(reward, drops[0].transform.position, reward.transform.rotation);
+        Instantiate(reward, drops[1].transform.position, reward.transform.rotation);
+        Instantiate(reward, drops[2].transform.position, reward.transform.rotation);
+        Instantiate(reward, drops[3].transform.position, reward.transform.rotation);
 
+
+
+    }
+    
+    void Update()
+    {
+        if (dead == false)
+        {
+            transform.LookAt(player.transform);
+            transform.position += transform.forward * speed;
+        }
+ 
     }
 }

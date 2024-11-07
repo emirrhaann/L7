@@ -18,5 +18,8 @@ public class CameraControl : MonoBehaviour
     void Update()
     {
         transform.position = player.transform.position + aradakifark;
+        
+        
+
     }
 }

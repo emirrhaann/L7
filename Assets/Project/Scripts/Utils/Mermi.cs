@@ -36,7 +36,6 @@ namespace Bullet
             if (other.gameObject.CompareTag(tag = "Enemy"))
             {
                 Destroy(gameObject);
-                Destroy(other.gameObject);
             }
         }
 
