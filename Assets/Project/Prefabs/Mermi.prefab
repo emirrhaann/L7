@@ -118,4 +118,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143ad44863d5f1145a996108a532c4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  Enemy: {fileID: 2876500734861051138, guid: d7411370d71f75848ac8e37297a885e0, type: 3}
+  speed: 10

@@ -12,43 +12,40 @@ namespace Bullet
         private Animator animator;
         private GameObject player;
         private PlayerController PlayerController;
+        public GameObject Enemy;
         [SerializeField] private float speed;
-
-
+        
         private void Awake()
         {
+            transform.LookAt(new Vector3(PlayerPrefs.GetFloat("enemylocation.x"), 0 ,PlayerPrefs.GetFloat("enemylocation.z")));
+
             StartCoroutine(nameof(MovementRoutine));
+            
         }
-
-
         private IEnumerator MovementRoutine()
         {
             while (true)
             {
-                transform.position += transform.right * speed * Time.deltaTime;
+                transform.position += transform.forward * speed * Time.deltaTime;
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 yield return new WaitForFixedUpdate();
             }
         }
-
-        void Start()
-        {
-        }
-
-
-        /*private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag(tag = "Enemy"))
             {
                 Destroy(gameObject);
                 Destroy(other.gameObject);
             }
-        }*/
+        }
 
-
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
+            transform.LookAt(new Vector3(PlayerPrefs.GetFloat("enemylocation.x"), 
+                transform.position.y ,
+                PlayerPrefs.GetFloat("enemylocation.z")));
+            
         }
     }
 }

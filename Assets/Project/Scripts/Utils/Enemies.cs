@@ -5,18 +5,25 @@ using DG.Tweening;
 using MainController;
 using UnityEngine;
 using UnityEditor.UIElements;
+using UnityEngine.Animations;
 
 public class Enemies : MonoBehaviour
 {
     public GameObject player;
-    private int enemyhp;
-
-    // Start is called before the first frame update
-   
-
+    private int enemyhp = 3;
+    private IEnumerator MovementRoutine()
+    {
+        while (true)
+        {
+            transform.position += transform.forward * Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+    }
     void Start()
     {
-        transform.DOPath(new[] {transform.position, player.transform.position}, 50).SetLoops(-1, LoopType.Restart);
+        transform.LookAt(player.transform);
+
+        StartCoroutine(nameof(MovementRoutine));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,12 +32,12 @@ public class Enemies : MonoBehaviour
         if (enemyhp == 0)
         {
             Destroy(gameObject);
-            
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void lateupdate()
     {
+        transform.LookAt(player.transform);
+
     }
 }

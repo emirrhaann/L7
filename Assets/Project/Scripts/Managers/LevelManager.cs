@@ -15,7 +15,6 @@ public class LevelManager : MonoSingleton<LevelManager>
     public const string PrefsLevelKey = "Level";
     private void Start()
     {
-        Debug.Log(PrefsLevelKey);
         CreateLevelList();
         StartCoroutine(nameof(LevelChangeRoutine));
     }

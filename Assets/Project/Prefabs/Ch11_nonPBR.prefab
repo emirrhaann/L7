@@ -147,22 +147,22 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8e15b5cc5783a6041a37dd12f7f5e8a2,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8e15b5cc5783a6041a37dd12f7f5e8a2,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8e15b5cc5783a6041a37dd12f7f5e8a2,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8e15b5cc5783a6041a37dd12f7f5e8a2,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8e15b5cc5783a6041a37dd12f7f5e8a2,
         type: 3}
@@ -172,7 +172,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8e15b5cc5783a6041a37dd12f7f5e8a2,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8e15b5cc5783a6041a37dd12f7f5e8a2,
         type: 3}
@@ -267,8 +267,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86cff2df56a5aa64e97549bf05201bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  control: 0
   attach: {fileID: 4298772221241582370}
   mermi: {fileID: 7165334837257079439, guid: a66530cd87417184ea8c73b2c9d790f2, type: 3}
+  pas: 0
+  floatingJoystick: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!65 &8579775941553635400
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -346,3 +350,5 @@ MonoBehaviour:
   hptext: {fileID: 0}
   cointext: {fileID: 0}
   bonustext: {fileID: 0}
+  spawner: {fileID: 0}
+  joysui: {fileID: 0}

@@ -11,6 +11,9 @@ public class Spawners : MonoBehaviour
     void Awake()
     {
         Instantiate(mobspawn, spawners[Random.Range(0, spawners.Count)].transform.position, mobspawn.transform.rotation);
+        Instantiate(mobspawn, spawners[Random.Range(0, spawners.Count)].transform.position, mobspawn.transform.rotation);
+        Instantiate(mobspawn, spawners[Random.Range(0, spawners.Count)].transform.position, mobspawn.transform.rotation);
+        Instantiate(mobspawn, spawners[Random.Range(0, spawners.Count)].transform.position, mobspawn.transform.rotation);
     }
 
     // Update is called once per frame

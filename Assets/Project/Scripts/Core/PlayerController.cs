@@ -6,18 +6,22 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using Bullet;
+using UnityEngine.UIElements;
 
 
 namespace MainController
 {
     public class PlayerController : MonoBehaviour
     {
-        RaycastHit hit;
+        public RaycastHit hit;
         public bool control = false;
         private Animator animator;
         public static bool tapped;
         public GameObject attach;
         public GameObject mermi;
+        public bool pas;
+        public FloatingJoystick floatingJoystick;
+        public Rigidbody rb;
 
         void Start()
         {
@@ -25,35 +29,34 @@ namespace MainController
             tapped = false;
             TapInputEnable();
         }
-
         private void TapInputEnable()
         {
             InputPanel.Instance.OnPointerDownEvent.AddListener(TapDown);
             InputPanel.Instance.OnPointerUpEvent.AddListener(TapUp);
             InputPanel.Instance.OnDragDelta.AddListener(OnDragDelta);
         }
-
-        private void OnDragDelta(Vector2 delta)
+        private void OnDragDelta(Vector2 delta) 
+        
         {
-            if (tapped == true)
-            {
+            if (tapped == true && pas == false)
+            { 
                 if (delta.x >= 3.98f)
                 {
-                    transform.position += transform.right * 0.15f;
+                        transform.position += transform.right * 0.15f;
                 }
                 else
                 {
-                    transform.position += transform.right * -0.15f;
+                        transform.position += transform.right * -0.15f;
                 }
             }
         }
-
-        private void TapInputDisable()
+        public void TapInputDisable()
         {
             InputPanel.Instance.OnPointerDownEvent.RemoveListener(TapDown);
             InputPanel.Instance.OnPointerUpEvent.RemoveListener(TapUp);
+            InputPanel.Instance.OnDragDelta.RemoveListener(OnDragDelta);
+            pas = true;
         }
-
         private void TapDown()
         {
             if (tapped == false)
@@ -62,68 +65,84 @@ namespace MainController
                 tapped = true;
             }
         }
-
         private void TapUp()
         {
         }
-
         public void StartMove()
         {
             transform.position += transform.forward * 0.1f;
             animator.CrossFade("Running", 0f);
         }
-
         public void SideMove()
         {
-            transform.position = new Vector3(transform.position.x,
-                transform.position.y,
-                Mathf.Clamp(transform.position.z,
-                    -2.0f,
-                    2.0f)
-            );
+            if (OnTriggers.Passed == false)
+            {
+                transform.position = new Vector3(transform.position.x,
+                    transform.position.y,
+                    Mathf.Clamp(transform.position.z,
+                        -2.0f,
+                        2.0f)
+                );
+            }
+            else
+            {
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x, 38.4f, 57f),
+                    transform.position.y,
+                    Mathf.Clamp(transform.position.z,
+                        -10.5f,
+                        10.5f)
+                );
+            }
+            
         }
-
         public IEnumerator Attack()
         {
             animator.CrossFade("FireAnim", 0.065f);
-            yield return new WaitForSeconds(0.068f);
+            yield return new WaitForSeconds(0.065f);
             Instantiate(mermi, attach.transform.position, attach.transform.rotation);
-            animator.CrossFade("Running", 0.65f);
             yield return new WaitForSeconds(2);
             control = false;
         }
-
-       
-
-
         void Update()
         {
+            SideMove();
             Physics.Raycast(new Vector3(transform.position.x,
                 transform.position.y + 2,
                 transform.position.z), transform.forward * 20, out hit);
             Debug.DrawRay(new Vector3(transform.position.x,
                 transform.position.y + 2,
-                transform.position.z), transform.forward * 20, Color.blue);
+                transform.position.z), transform.forward * 20);
             if (hit.collider != null)
             {
                 if (OnTriggers.Passed == true)
                 {
                     attach.gameObject.SetActive(true);
-
                     if (hit.collider.gameObject.CompareTag("Enemy") && control == false)
                     {
+                        PlayerPrefs.SetFloat("enemylocation.x", hit.collider.gameObject.transform.position.x);
+                        PlayerPrefs.SetFloat("enemylocation.z", hit.collider.gameObject.transform.position.z);
                         StartCoroutine(nameof(Attack));
                         control = true;
                     }
                 }
             }
-
             if (tapped == true && OnTriggers.restart == false && OnTriggers.gameOver == false &&
                 OnTriggers.Passed == false)
             {
                 StartMove();
             }
-            SideMove();
+        }
+        void FixedUpdate()
+        {
+            if (OnTriggers.OnJoystick)
+            {
+                Vector3 direction = Vector3.right * floatingJoystick.Vertical +
+                                    Vector3.forward * -floatingJoystick.Horizontal;
+                PlayerPrefs.SetFloat("lastdirection", direction.x);
+                transform.position += (direction * 0.06f);
+                direction.x += 0.25f;
+                transform.rotation = Quaternion.LookRotation(direction);
+            }
         }
     }
 }

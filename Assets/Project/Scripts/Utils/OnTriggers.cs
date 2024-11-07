@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.AdaptivePerformance.VisualScripting;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Image = UnityEngine.UIElements.Image;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
@@ -31,13 +32,14 @@ public class OnTriggers : MonoBehaviour
     public static bool Passed;
     private GameObject player;
     public GameObject spawner;
+    public static bool OnJoystick;
+    public GameObject joysui;
 
 
     // Start is called before the first frame update
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        
     }
 
     private void Start()
@@ -59,8 +61,18 @@ public class OnTriggers : MonoBehaviour
         bonustext.gameObject.SetActive(true);
         bonustext.transform.DOScale(Vector3.one * 0.7f, 1.1f).SetEase(Ease.OutBounce).OnComplete(ShowGameplay);
     }
-    
- 
+
+    IEnumerator changing()
+    {
+        ShowBonus();
+        Passed = true;   
+        animator.CrossFade("VictoryAnimation", 0.1f);
+        yield return new WaitForSeconds(2);
+        animator.CrossFade("Blend Tree", 0.1f);
+        joysui.SetActive(true);
+        OnJoystick = true;
+        Instantiate(spawner, new Vector3(32.01f, 0.25f, 2.35f), Quaternion.Euler(0,0,0));
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -110,11 +122,10 @@ public class OnTriggers : MonoBehaviour
             animator.CrossFadeInFixedTime("VictoryAnimation", 0.5f);
         }
         if (other.gameObject.CompareTag("FinishLine"))
-        {
-            animator.CrossFade("VictoryAnimation", 0.1f);
-            ShowBonus();
-            Passed = true;   
-            Instantiate(spawner, new Vector3(32.01f, 0.25f, 2.35f), Quaternion.Euler(0,0,0));
+        { 
+            StartCoroutine(nameof(changing));
+            Destroy(other.gameObject);
+            GetComponent<PlayerController>().TapInputDisable();
         }
     }
 
