@@ -118,7 +118,7 @@ namespace MainController
                 if (OnTriggers.Passed == true)
                 {
                     attach.gameObject.SetActive(true);
-                    if (hit.collider.gameObject.CompareTag("Enemy") && control == false)
+                    if (hit.collider.gameObject.CompareTag("Enemy") && control == false && OnTriggers.OnJoystick)
                     {
                         PlayerPrefs.SetFloat("enemylocation.x", hit.collider.gameObject.transform.position.x);
                         PlayerPrefs.SetFloat("enemylocation.z", hit.collider.gameObject.transform.position.z);

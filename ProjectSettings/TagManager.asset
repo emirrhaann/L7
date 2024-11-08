@@ -13,6 +13,7 @@ TagManager:
   - Enemy
   - atah
   - RewardCoin
+  - mermi
   layers:
   - Default
   - TransparentFX

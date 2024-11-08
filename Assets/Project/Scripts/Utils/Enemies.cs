@@ -36,11 +36,15 @@ public class Enemies : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        enemyhp--;
-        if (enemyhp == 0)
+        if (other.tag == "mermi")
         {
-            StartCoroutine(nameof(Death));
+            enemyhp--;
+            if (enemyhp == 0)
+            {
+                StartCoroutine(nameof(Death));
+            }
         }
+        
     }
 
     IEnumerator Death()
@@ -50,10 +54,10 @@ public class Enemies : MonoBehaviour
         yield return new WaitForSeconds(2.3f);
         Destroy(gameObject);
         Instantiate(reward, drops[0].transform.position, reward.transform.rotation);
-        Instantiate(reward, drops[1].transform.position, reward.transform.rotation);
+/*        Instantiate(reward, drops[1].transform.position, reward.transform.rotation);
         Instantiate(reward, drops[2].transform.position, reward.transform.rotation);
         Instantiate(reward, drops[3].transform.position, reward.transform.rotation);
-
+*/
 
 
     }

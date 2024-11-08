@@ -62,7 +62,8 @@ public class OnTriggers : MonoBehaviour
     {
         UIManager.Instance.HidePanel(PanelType.All);
         bonustext.gameObject.SetActive(true);
-        bonustext.transform.DOScale(Vector3.one * 0.7f, 2f).SetEase(Ease.OutBounce).OnComplete(ShowGameplay);
+        bonustext.transform.DOScale(Vector3.one * 0.7f, 2f).
+            SetEase(Ease.OutBounce).OnComplete(ShowGameplay);
     }
 
     IEnumerator changing()
@@ -91,7 +92,6 @@ public class OnTriggers : MonoBehaviour
             if (hp <= 0)
             {
                 UIManager.Instance.ShowPanel(PanelType.Lose);
-
                 restart = true;
                 animator.CrossFade("DeadAnimation", 0.5f);
             }
@@ -111,7 +111,6 @@ public class OnTriggers : MonoBehaviour
             coincount++;
             cointext.text = coincount + "";
         }
-
         if (other.gameObject.CompareTag("RewardCoin"))
         {
             coincount++;
