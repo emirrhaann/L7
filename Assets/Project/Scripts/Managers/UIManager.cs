@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 public class UIManager : MonoSingleton<UIManager>
 {
-    
+    OnTriggers OnTriggers;
     [SerializeField] private List<Panel> panels = new List<Panel>();
     [SerializeField] private TextMeshProUGUI winLevelText = null;
     [SerializeField] private TextMeshProUGUI loseLevelText = null;
@@ -12,6 +12,7 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private TextMeshProUGUI currentGoldText;
     private void Start()
     {
+        OnTriggers = GameObject.FindGameObjectWithTag("Player").GetComponent<OnTriggers>();
          currentLevelText.text = "LEVEL " + (PlayerPrefs.GetInt("levelkey") + 1);
     }
     public void ShowPanel(PanelType panelType, bool hideOthers = true)
@@ -57,9 +58,7 @@ public class UIManager : MonoSingleton<UIManager>
             OnTriggers.coincount -= 7;
             OnTriggers.Damage = 15;
         }
-   
     }
-    
 }
 [Serializable]
 public class Panel
@@ -78,6 +77,4 @@ public enum PanelType
     GamePlay,
     Win,
     Lose,
-    
-    
 }

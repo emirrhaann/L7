@@ -378,7 +378,11 @@
 "Assets/Project/Scripts/Managers/GameManager.cs"
 "Assets/Project/Scripts/Managers/LevelManager.cs"
 "Assets/Project/Scripts/Managers/UIManager.cs"
+"Assets/Project/Scripts/Utils/Buff.cs"
+"Assets/Project/Scripts/Utils/Coin.cs"
+"Assets/Project/Scripts/Utils/Debuff.cs"
 "Assets/Project/Scripts/Utils/Enemies.cs"
+"Assets/Project/Scripts/Utils/FinishLine.cs"
 "Assets/Project/Scripts/Utils/InputPanel.cs"
 "Assets/Project/Scripts/Utils/ListExtensions.cs"
 "Assets/Project/Scripts/Utils/Mermi.cs"
@@ -387,6 +391,7 @@
 "Assets/Project/Scripts/Utils/PropMove.cs"
 "Assets/Project/Scripts/Utils/RewardPropMove.cs"
 "Assets/Project/Scripts/Utils/Spawners.cs"
+"Assets/Project/Scripts/Utils/VictoryLine.cs"
 "Assets/Trash/TutorialInfo/Scripts/Readme.cs"
 -langversion:9.0
 

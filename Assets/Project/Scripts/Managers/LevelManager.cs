@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoSingleton<LevelManager>
 {
+    OnTriggers OnTriggers;
     public List<LevelObject> levels = new List<LevelObject>();
     private List<LevelObject> shuffledLevels = new List<LevelObject>();
     [Space, ReadOnly] public LevelObject currentLevel = null;
@@ -15,6 +16,7 @@ public class LevelManager : MonoSingleton<LevelManager>
     public const string PrefsLevelKey = "Level";
     private void Start()
     {
+        OnTriggers = GameObject.FindGameObjectWithTag("Player").GetComponent<OnTriggers>();
         CreateLevelList();
         StartCoroutine(nameof(LevelChangeRoutine));
     }

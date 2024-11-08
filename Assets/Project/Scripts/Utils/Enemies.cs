@@ -1,74 +1,42 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
-using MainController;
 using UnityEngine;
-using UnityEditor.UIElements;
-using UnityEngine.Animations;
-using Random = System.Random;
 
-public class Enemies : MonoBehaviour
+namespace Project.Scripts.Utils
 {
-    private GameObject player;
-    private int enemyhp = 1;
-    public float speed;
-    Animator animator;
-    public List<GameObject> drops = new List<GameObject>();
-    public GameObject reward;
-
-    private bool dead;
-    /*private IEnumerator MovementRoutine()
+    
+    public class Enemies : MonoBehaviour
     {
-        while (true)
+        private GameObject player;
+        public int enemyhp = 1;
+        public float speed;
+        public Animator animator;
+        public List<GameObject> drops = new List<GameObject>();
+        public GameObject reward;
+        public bool dead;
+ 
+        void Awake()
         {
-            
-            yield return new WaitForFixedUpdate();
+            animator = GetComponent<Animator>();
+            player = GameObject.FindGameObjectWithTag("Player");
+            transform.LookAt(player.transform);
         }
-    }*/
-    void Awake()
-    {
-        animator = GetComponent<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player");
-        transform.LookAt(player.transform);
-
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "mermi")
+       public IEnumerator Death()
         {
-            enemyhp--;
-            if (enemyhp == 0)
+            dead = true;
+            animator.CrossFade("DeadAnim", 0.03f);
+            yield return new WaitForSeconds(2f);
+            Destroy(gameObject);
+            Instantiate(reward, drops[0].transform.position, reward.transform.rotation);
+        }
+        void Update()
+        {
+            if (dead == false)
             {
-                StartCoroutine(nameof(Death));
+                transform.LookAt(player.transform);
+                transform.position += transform.forward * speed;
             }
         }
-        
     }
 
-    IEnumerator Death()
-    {
-        dead = true;
-        animator.CrossFade("DeadAnim", 0.04f);
-        yield return new WaitForSeconds(2.3f);
-        Destroy(gameObject);
-        Instantiate(reward, drops[0].transform.position, reward.transform.rotation);
-/*        Instantiate(reward, drops[1].transform.position, reward.transform.rotation);
-        Instantiate(reward, drops[2].transform.position, reward.transform.rotation);
-        Instantiate(reward, drops[3].transform.position, reward.transform.rotation);
-*/
-
-
-    }
-    
-    void Update()
-    {
-        if (dead == false)
-        {
-            transform.LookAt(player.transform);
-            transform.position += transform.forward * speed;
-        }
- 
-    }
 }

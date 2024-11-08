@@ -18,13 +18,15 @@ namespace MainController
         public Animator animator;
         public static bool tapped;
         public GameObject attach;
-        public GameObject mermi;
+        public Mermi mermi;
         public bool pas;
         public FloatingJoystick floatingJoystick;
         public Rigidbody rb;
+        public OnTriggers OnTriggers;
 
         void Awake()
         {
+            OnTriggers = GetComponent<OnTriggers>();
             animator = GetComponent<Animator>();
             tapped = false;
             TapInputEnable();
@@ -93,14 +95,14 @@ namespace MainController
                         10.5f)
                 );
             }
-            
         }
-        public IEnumerator Attack()
+        public IEnumerator Attack(Vector3 target)
         {
             animator.CrossFade("FireAnim", 0.04f);
             yield return new WaitForSeconds(0.05f);
             animator.CrossFade("Running", 0.04f);
-            Instantiate(mermi, attach.transform.position, attach.transform.rotation);
+            var bullet = Instantiate(this.mermi, attach.transform.position, attach.transform.rotation);
+            bullet.Look(target);
             yield return new WaitForSeconds(1);
             control = false;
         }
@@ -109,10 +111,7 @@ namespace MainController
             SideMove();
             Physics.Raycast(new Vector3(transform.position.x,
                 transform.position.y + 2,
-                transform.position.z), transform.forward * 20, out hit);
-            Debug.DrawRay(new Vector3(transform.position.x,
-                transform.position.y + 2,
-                transform.position.z), transform.forward * 20);
+                transform.position.z), transform.forward * 20, out hit); 
             if (hit.collider != null)
             {
                 if (OnTriggers.Passed == true)
@@ -120,9 +119,7 @@ namespace MainController
                     attach.gameObject.SetActive(true);
                     if (hit.collider.gameObject.CompareTag("Enemy") && control == false && OnTriggers.OnJoystick)
                     {
-                        PlayerPrefs.SetFloat("enemylocation.x", hit.collider.gameObject.transform.position.x);
-                        PlayerPrefs.SetFloat("enemylocation.z", hit.collider.gameObject.transform.position.z);
-                        StartCoroutine(nameof(Attack));
+                        StartCoroutine(Attack(hit.collider.gameObject.transform.position + new Vector3(0,2,0)));
                         control = true;
                     }
                 }
