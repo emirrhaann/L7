@@ -87,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 3306879235841865990}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.9063079, z: -0, w: -0.42261827}
-  m_LocalPosition: {x: 16.22722, y: 0, z: 6.9811163}
+  m_LocalPosition: {x: 16.22722, y: 0, z: 5.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 1429878023562581843}
   m_Layer: 0
   m_Name: Spawns
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

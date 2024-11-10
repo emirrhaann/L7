@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Project.Scripts.Utils
@@ -15,19 +17,25 @@ namespace Project.Scripts.Utils
         public GameObject reward;
         public bool dead;
  
-        void Awake()
+        void Start()
         {
             animator = GetComponent<Animator>();
             player = GameObject.FindGameObjectWithTag("Player");
             transform.LookAt(player.transform);
         }
-       public IEnumerator Death()
+
+       public void death()
         {
+            animator.CrossFade("DeadAnim", 0.03f); 
             dead = true;
-            animator.CrossFade("DeadAnim", 0.03f);
-            yield return new WaitForSeconds(2f);
+            transform.DOScale(Vector3.zero * 0, 2f).SetEase(Ease.InOutBack).OnComplete(spawnreward);
+        }
+
+        void spawnreward()
+        {
             Destroy(gameObject);
-            Instantiate(reward, drops[0].transform.position, reward.transform.rotation);
+            Instantiate(reward, transform.position + new Vector3(0,3,0), Quaternion.Euler(90,0,0));
+
         }
         void Update()
         {
@@ -35,6 +43,9 @@ namespace Project.Scripts.Utils
             {
                 transform.LookAt(player.transform);
                 transform.position += transform.forward * speed;
+            }
+            else
+            {
             }
         }
     }

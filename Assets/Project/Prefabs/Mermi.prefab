@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6781608061124181204}
   m_Layer: 0
   m_Name: Mermi
-  m_TagString: Respawn
+  m_TagString: mermi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,5 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143ad44863d5f1145a996108a532c4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 2876500734861051138, guid: d7411370d71f75848ac8e37297a885e0, type: 3}
   speed: 15

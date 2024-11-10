@@ -48,6 +48,15 @@ public class FinishLine : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         StartCoroutine(nameof(Changing));
+        cameracont();
+        transform.position = new Vector3(transform.position.x, transform.position.y, (transform.position.z + playerController.transform.position.z));
+        
+    }
+    void cameracont()
+    {
+        transform.DOPath(new[] { transform.position, new Vector3(30.97f, 15.13f, playerController.transform.position.z) }, 2);
+        transform.rotation = Quaternion.Euler(30,90,0);
+        Camera.main.fieldOfView = 100;
         
     }
 }

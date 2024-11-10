@@ -10,10 +10,12 @@ public class Spawners : MonoBehaviour
     public GameObject mobspawn;
     void Awake()
     {
-        Instantiate(mobspawn, spawners[Random.Range(2, spawners.Count)].transform.position, mobspawn.transform.rotation);
-     //   Instantiate(mobspawn, spawners[Random.Range(1, spawners.Count)].transform.position, mobspawn.transform.rotation);
-      //  Instantiate(mobspawn, spawners[Random.Range(3, spawners.Count)].transform.position, mobspawn.transform.rotation);
-       //  Instantiate(mobspawn, spawners[Random.Range(0, spawners.Count)].transform.position, mobspawn.transform.rotation);
+        
+       // Instantiate(mobspawn, spawners[2].transform.position, mobspawn.transform.rotation);
+       // Instantiate(mobspawn, spawners[1].transform.position, mobspawn.transform.rotation);
+      //  Instantiate(mobspawn, spawners[0].transform.position, mobspawn.transform.rotation); 
+        mobspawn.gameObject.tag = "Enemy";
+
     }
 
     // Update is called once per frame

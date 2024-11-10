@@ -265,6 +265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyhp: 1
   speed: 0.02
+  animator: {fileID: 0}
   drops:
   - {fileID: 189276716356196872}
   - {fileID: 6788641677007243188}

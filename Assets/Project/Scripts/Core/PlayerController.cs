@@ -23,6 +23,7 @@ namespace MainController
         public FloatingJoystick floatingJoystick;
         public Rigidbody rb;
         public OnTriggers OnTriggers;
+        public Rigidbody rigidbody;
 
         void Awake()
         {
@@ -30,6 +31,7 @@ namespace MainController
             animator = GetComponent<Animator>();
             tapped = false;
             TapInputEnable();
+            rigidbody = GetComponent<Rigidbody>();
         }
         private void TapInputEnable()
         {
@@ -108,7 +110,10 @@ namespace MainController
         }
         void Update()
         {
-            SideMove();
+            if (OnTriggers.gameOver == false)
+            {
+                SideMove();
+            }
             Physics.Raycast(new Vector3(transform.position.x,
                 transform.position.y + 2,
                 transform.position.z), transform.forward * 20, out hit); 
@@ -132,14 +137,21 @@ namespace MainController
         }
         void FixedUpdate()
         {
-            if (OnTriggers.OnJoystick)
+            if (OnTriggers.OnJoystick && OnTriggers.gameOver == false)
             {
                 Vector3 direction = Vector3.right * floatingJoystick.Vertical +
                                     Vector3.forward * -floatingJoystick.Horizontal;
                 transform.position += (direction * 0.14f);
                 direction.x += 0.25f;
                 transform.rotation = Quaternion.LookRotation(direction);
-                
+            }
+            if (OnTriggers.OnJoystick && OnTriggers.gameOver == true)
+            {
+                Vector3 direction = Vector3.up * floatingJoystick.Vertical +
+                                    Vector3.forward * -floatingJoystick.Horizontal;
+                transform.position += (direction * 0.14f);
+                direction.x += 0.25f;
+                transform.rotation = Quaternion.LookRotation(direction);
             }
         }
     }

@@ -9,7 +9,6 @@ public class CameraControl : MonoBehaviour
     OnTriggers onTriggers;
     public GameObject player;
     public Camera cam;
-    private bool camcontrol;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,30 +16,21 @@ public class CameraControl : MonoBehaviour
         aradakifark = transform.position - player.transform.position;
     }
 
-    void cameracont()
-    {
-        transform.DOPath(new[] { transform.position, new Vector3(30.97f, 15.13f, player.transform.position.z) }, 2);
-        transform.rotation = Quaternion.Euler(30,90,0);
-        cam.fieldOfView = 100;
-        camcontrol = true;
-    }
+   
     // Update is called once per frame
     void Update()
     {
-        if (onTriggers.Passed)
+        if (onTriggers.gameOver)
         {
-            if (camcontrol== false)
-            {
-                cameracont();
-                transform.position = new Vector3(transform.position.x, transform.position.y, (transform.position.z + player.transform.position.z));
-            }
-            
+           
+            transform.position = player.transform.position + aradakifark;
+            cam.fieldOfView = 60;
+            // transform.rotation = player.transform.rotation;
 
         }
         else
         {
             transform.position = player.transform.position + aradakifark;
-
         }
         
     }

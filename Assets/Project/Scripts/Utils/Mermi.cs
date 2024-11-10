@@ -5,6 +5,7 @@ using DG.Tweening;
 using MainController;
 using Project.Scripts.Utils;
 using UnityEngine;
+using UnityEngine.AdaptivePerformance.VisualScripting;
 
 namespace Bullet
 {
@@ -14,12 +15,10 @@ namespace Bullet
         private Animator animator;
         private GameObject player;
         private PlayerController PlayerController;
-        public GameObject Enemy;
         [SerializeField] private float speed;
 
-        private void Awake()
+        private void Start()
         {
-            Enemies = FindObjectOfType<Enemies>().GetComponent<Enemies>();
         }
 
         private IEnumerator MovementRoutine()
@@ -32,24 +31,18 @@ namespace Bullet
         }
         private void OnTriggerEnter(Collider other)
         {
-            Destroy(gameObject);
-            if (other.gameObject.CompareTag(tag = "Enemy"))
+            Enemies = other.gameObject.GetComponent<Enemies>();
+
+            if (other.gameObject.CompareTag(tag = "Player"))
             {
-                Enemies.enemyhp--;
-                if (Enemies.enemyhp <= 0)
-                { 
-                    StartCoroutine(Enemies.Death());
-                }
+                
             }
+            else
+            {
+                Enemies.death();
+            }
+            Destroy(gameObject);
         }
-      /*  IEnumerator Death(Collider other)
-        {
-            Enemies.dead = true;
-            Enemies.animator.CrossFade("DeadAnim", 0.04f);
-            yield return new WaitForSeconds(1f);
-            Destroy(other.gameObject);
-            Instantiate(Enemies.reward, Enemies.drops[0].transform.position, Enemies.reward.transform.rotation);
-        }*/
         public void Look(Vector3 lookat)
         {
             transform.LookAt(lookat);
