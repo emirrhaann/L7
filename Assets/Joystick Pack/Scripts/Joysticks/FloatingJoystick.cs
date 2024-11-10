@@ -50,7 +50,6 @@ public class FloatingJoystick : Joystick
             animator.CrossFade("Blend Tree", 0.01f);
 
         }
-        pointed = true;
         
         pointed = false;
     }

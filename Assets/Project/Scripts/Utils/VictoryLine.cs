@@ -4,17 +4,21 @@ using DG.Tweening;
 using MainController;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class VictoryLine : MonoBehaviour
 {
     OnTriggers playerController;
     private PlayerController playerobject;
     private GameObject enemycheck;
+    FloatingJoystick joystick;
+    public GameObject buts;
 
     public Text flytext;
     // Start is called before the first frame update
     void Start()
     {
+        joystick = FindObjectOfType<FloatingJoystick>();
         enemycheck = GameObject.FindGameObjectWithTag("Enemy");
         playerobject = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<OnTriggers>();
@@ -23,8 +27,9 @@ public class VictoryLine : MonoBehaviour
     {
         if (enemycheck == null && other.CompareTag("Player"))
         {
-            ShowBonus();
             playerController.OnJoystick = false;
+            buts.gameObject.SetActive(false);
+            ShowBonus();
             playerController.joysui.gameObject.SetActive(false);
             playerController.gameOver = true;
             playerController.animator.CrossFadeInFixedTime("VictoryAnimation", 0.5f);
@@ -45,8 +50,11 @@ public class VictoryLine : MonoBehaviour
         flytext.gameObject.SetActive(false);
         playerController.joysui.gameObject.SetActive(true);
         playerController.playerattach.gameObject.SetActive(false);
-        playerController.OnJoystick = true;
       // playerobject.rigidbody.isKinematic = true;
         playerobject.rigidbody.useGravity = false;
+        playerController.OnJoystick = true;
+        buts.gameObject.SetActive(true);
+
+
     }
 }

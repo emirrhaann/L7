@@ -717,6 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c66b577fdf5b7764bbdaa4b00fd31f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buts: {fileID: 1532227327}
   flytext: {fileID: 413125750}
 --- !u!224 &455566112 stripped
 RectTransform:
@@ -1024,7 +1025,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.12651977, y: 0.6956958, z: -0.12651974, w: 0.69569594}
-  m_LocalPosition: {x: 29.06, y: 10.94, z: 0}
+  m_LocalPosition: {x: 28.9, y: 10.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1360,6 +1361,12 @@ RectTransform:
   m_AnchoredPosition: {x: 276.5, y: 815}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1532227327 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8170153792821263259, guid: 0d230cc8be529a542a08cb878ab14b18,
+    type: 3}
+  m_PrefabInstance: {fileID: 194302184}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1615616348 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6371328310029329330, guid: ef88b5fcd172d274a89c8679b8537003,
@@ -3662,7 +3669,7 @@ PrefabInstance:
     - target: {fileID: 5989877646102657288, guid: ef88b5fcd172d274a89c8679b8537003,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.977737
+      value: 38.817738
       objectReference: {fileID: 0}
     - target: {fileID: 5989877646102657288, guid: ef88b5fcd172d274a89c8679b8537003,
         type: 3}
