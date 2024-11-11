@@ -1,41 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using DG.Tweening;
-using MainController;
+using Project.Scripts.Core;
 using UnityEngine;
 
-public class Debuff : MonoBehaviour
+namespace Project.Scripts.Utils
 {
-    OnTriggers playerController;
-    private GameObject playerobject;
+    public class Debuff : MonoBehaviour
+    {
+        private PlayerController _playerController;
+        private OnTriggers _onTriggers;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-        playerobject = GameObject.FindGameObjectWithTag("Player");
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<OnTriggers>();
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (playerController.hp != 0)
+        private void Start()
         {
-            playerController.hp -= OnTriggers.Damage;
-            playerController.hptext.text = playerController.hp + "";
+            _onTriggers = FindObjectOfType<OnTriggers>();
+            _playerController = FindObjectOfType<PlayerController>();
         }
 
-        if (playerController.hp <= 0)
+        private void OnTriggerEnter(Collider other)
         {
-            UIManager.Instance.ShowPanel(PanelType.Lose);
-            playerController.restart = true;
-            playerController.animator.CrossFade("DeadAnimation", 0.5f);
-        }
+            if (_onTriggers.hp != 0)
+            {
+                _onTriggers.hp -= _onTriggers.damage;
+                _onTriggers.hptext.text = _onTriggers.hp + "";
+            }
 
-        playerController.kamera.transform.DOShakeRotation(0.4f, Vector3.one * 0.2f, 90);
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+            if (_onTriggers.hp <= 0)
+            {
+                UIManager.Instance.ShowPanel(PanelType.Lose);
+                _onTriggers.restart = true;
+                _playerController.animator.CrossFade("DeadAnimation", 0.5f);
+            }
+
+            _onTriggers.kamera.transform.DOShakeRotation(0.4f, Vector3.one * 0.2f, 90);
+        }
     }
 }

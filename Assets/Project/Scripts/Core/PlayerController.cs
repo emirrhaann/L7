@@ -1,91 +1,87 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
+using Joystick_Pack.Scripts.Joysticks;
+using Project.Scripts.Utils;
 using UnityEngine;
-using Bullet;
-using UnityEngine.UIElements;
 
-
-namespace MainController
+namespace Project.Scripts.Core
 {
     public class PlayerController : MonoBehaviour
     {
-        public RaycastHit hit;
-        public bool control = false;
+        [SerializeField]
+        private float firstarealimitmin;
+        [SerializeField]
+        private float firstarealimitmax;
+        [SerializeField]
+        private float secondarealimitmin;
+        [SerializeField]
+        private float secondarealimitmax;
+        private RaycastHit _hit;
+        public bool control;
         public Animator animator;
-        public static bool tapped;
+        private bool _tapped;
         public GameObject attach;
-        public Mermi mermi;
+        public Bullet spawnbullet;
         public bool pas;
         public FloatingJoystick floatingJoystick;
-        public Rigidbody rb;
-        public OnTriggers OnTriggers;
-        public Rigidbody rigidbody;
+        [SerializeField]private OnTriggers onTriggers;
+        public new Rigidbody rigidbody;
+        public int deadcount;
 
         void Awake()
         {
-            OnTriggers = GetComponent<OnTriggers>();
-            animator = GetComponent<Animator>();
-            tapped = false;
             TapInputEnable();
-            rigidbody = GetComponent<Rigidbody>();
+           // _tapped = false;
+           // onTriggers = FindObjectOfType<OnTriggers>(); 
+           animator = GetComponent<Animator>();
+           rigidbody = GetComponent<Rigidbody>();
         }
         private void TapInputEnable()
         {
             InputPanel.Instance.OnPointerDownEvent.AddListener(TapDown);
-            InputPanel.Instance.OnPointerUpEvent.AddListener(TapUp);
             InputPanel.Instance.OnDragDelta.AddListener(OnDragDelta);
         }
-        private void OnDragDelta(Vector2 delta) 
-        
+        private void OnDragDelta(Vector2 delta)
         {
-            if (tapped == true && pas == false)
-            { 
-                if (delta.x >= 3.98f)
-                {
-                        transform.position += transform.right * 0.15f;
-                }
-                else
-                {
-                        transform.position += transform.right * -0.15f;
-                }
+            if (!_tapped || pas || onTriggers.restart) return;
+            if (delta.x >= 3.98f)
+            {
+                transform.position += transform.right * 0.15f;
+            }
+            else
+            {
+                transform.position += transform.right * -0.15f;
             }
         }
         public void TapInputDisable()
         {
             InputPanel.Instance.OnPointerDownEvent.RemoveListener(TapDown);
-            InputPanel.Instance.OnPointerUpEvent.RemoveListener(TapUp);
             InputPanel.Instance.OnDragDelta.RemoveListener(OnDragDelta);
             pas = true;
         }
         private void TapDown()
         {
-            if (tapped == false)
+            if (_tapped == false)
             {
                 UIManager.Instance.ShowPanel(PanelType.GamePlay);
-                tapped = true;
+                onTriggers.hptext.gameObject.SetActive(true);
+                _tapped = true;
             }
         }
-        private void TapUp()
-        {
-        }
-        public void StartMove()
+
+        private void StartMove()
         {
             transform.position += transform.forward * 0.1f;
             animator.CrossFade("Running", 0f);
         }
         public void SideMove()
         {
-            if (OnTriggers.Passed == false)
+            if (onTriggers.passed == false)
             {
                 transform.position = new Vector3(transform.position.x,
                     transform.position.y,
                     Mathf.Clamp(transform.position.z,
-                        -2.0f,
-                        2.0f)
+                        firstarealimitmin,
+                        firstarealimitmax)
                 );
             }
             else
@@ -93,51 +89,53 @@ namespace MainController
                 transform.position = new Vector3(Mathf.Clamp(transform.position.x, 41.4f, 57f),
                     transform.position.y,
                     Mathf.Clamp(transform.position.z,
-                        -10.5f,
-                        10.5f)
+                        secondarealimitmin,
+                        secondarealimitmax)
                 );
             }
         }
-        public IEnumerator Attack(Vector3 target)
+
+        private IEnumerator Attack(Vector3 target)
         {
+            
             animator.CrossFade("FireAnim", 0.04f);
             yield return new WaitForSeconds(0.05f);
             animator.CrossFade("Running", 0.04f);
-            var bullet = Instantiate(this.mermi, attach.transform.position, attach.transform.rotation);
+            var bullet = Instantiate(spawnbullet, attach.transform.position, attach.transform.rotation);
             bullet.Look(target);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1.5f);
             control = false;
         }
         void Update()
         {
-            if (OnTriggers.gameOver == false)
+            if (onTriggers.gameOver == false)
             {
                 SideMove();
             }
             Physics.Raycast(new Vector3(transform.position.x,
                 transform.position.y + 2,
-                transform.position.z), transform.forward * 20, out hit); 
-            if (hit.collider != null)
+                transform.position.z), transform.forward * 20, out _hit); 
+            if (_hit.collider /*!= null*/)
             {
-                if (OnTriggers.Passed == true)
+                if (onTriggers.passed)
                 {
                     attach.gameObject.SetActive(true);
-                    if (hit.collider.gameObject.CompareTag("Enemy") && control == false && OnTriggers.OnJoystick)
+                    if (_hit.collider.gameObject.CompareTag("Enemy") && control == false && onTriggers.onJoystick)
                     {
-                        StartCoroutine(Attack(hit.collider.gameObject.transform.position + new Vector3(0,2,0)));
+                        StartCoroutine(Attack(_hit.collider.gameObject.transform.position + new Vector3(0,2,0)));
                         control = true;
                     }
                 }
             }
-            if (tapped == true && OnTriggers.restart == false && OnTriggers.gameOver == false &&
-                OnTriggers.Passed == false)
+            if (_tapped&& onTriggers.restart == false && onTriggers.gameOver == false &&
+                onTriggers.passed == false)
             {
                 StartMove();
             }
         }
-        void FixedUpdate()
+        private void FixedUpdate()
         {
-            if (OnTriggers.OnJoystick && OnTriggers.gameOver == false)
+            if (onTriggers.onJoystick && onTriggers.gameOver == false)
             {
                 Vector3 direction = Vector3.right * floatingJoystick.Vertical +
                                     Vector3.forward * -floatingJoystick.Horizontal;
@@ -145,7 +143,8 @@ namespace MainController
                 direction.x += 0.25f;
                 transform.rotation = Quaternion.LookRotation(direction);
             }
-            if (OnTriggers.OnJoystick && OnTriggers.gameOver == true)
+
+            if (!onTriggers.onJoystick || !onTriggers.gameOver) return;
             {
                 Vector3 direction = Vector3.up * floatingJoystick.Vertical +
                                     Vector3.forward * -floatingJoystick.Horizontal;

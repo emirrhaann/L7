@@ -1,64 +1,66 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using MainController;
+﻿using Project.Scripts.Core;
+using Project.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class FloatingJoystick : Joystick
+namespace Joystick_Pack.Scripts.Joysticks
 {
-    private Animator animator;
-    OnTriggers ontrigger;
-    private GameObject player;
-    private bool pointed;
-    protected override void Start()
+    public class FloatingJoystick : Joystick
     {
-        player = GameObject.FindGameObjectWithTag("Player").gameObject;
-        animator = FindObjectOfType<PlayerController>().GetComponent<Animator>();
-        base.Start();
-        background.gameObject.SetActive(false);
-        ontrigger = FindObjectOfType<OnTriggers>().GetComponent<OnTriggers>();
-    }
-
-    public override void OnPointerDown(PointerEventData eventData)
-    {
-        background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
-        background.gameObject.SetActive(true);
-        base.OnPointerDown(eventData);
-        if (ontrigger.gameOver)
+        private Animator _animator;
+        private OnTriggers _ontrigger;
+        private PlayerController _playerController;
+        private bool _pointed;
+        protected override void Start()
         {
-            animator.CrossFade("Fly", 0.04f);
+            _playerController = FindObjectOfType<PlayerController>();
+            _ontrigger = FindObjectOfType<OnTriggers>();
+            _animator = _playerController.GetComponent<Animator>();
+            base.Start();
+            background.gameObject.SetActive(false);
+  
         }
-        else
-        {
-            animator.CrossFade("Running", 0.04f);
 
-        }
-        pointed = true;
-    }
-
-    public override void OnPointerUp(PointerEventData eventData)
-    {
-        background.gameObject.SetActive(false);
-        base.OnPointerUp(eventData);
-        if (ontrigger.gameOver)
+        public override void OnPointerDown(PointerEventData eventData)
         {
-            animator.CrossFade("Fly", 0.04f);
-        }
-        else
-        {
-            animator.CrossFade("Blend Tree", 0.01f);
+            background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
+            background.gameObject.SetActive(true);
+            base.OnPointerDown(eventData);
+            if (_ontrigger.gameOver)
+            {
+                _animator.CrossFade("Fly", 0.04f);
+            }
+            else
+            {
+                _animator.CrossFade("Running", 0.04f);
 
+            }
+            _pointed = true;
         }
+
+        public override void OnPointerUp(PointerEventData eventData)
+        {
+            background.gameObject.SetActive(false);
+            base.OnPointerUp(eventData);
+            if (_ontrigger.gameOver)
+            {
+                _animator.CrossFade("Fly", 0.04f);
+            }
+            else
+            {
+                _animator.CrossFade("Blend Tree", 0.01f);
+
+            }
         
-        pointed = false;
-    }
+            _pointed = false;
+        }
 
-    void FixedUpdate()
-    {
-        if (pointed && ontrigger.gameOver )
-        {   
-            player.transform.position += player.transform.forward * .2f;
+        void FixedUpdate()
+        {
+            if (_pointed && _ontrigger.gameOver )
+            {   
+                _playerController.gameObject.transform.position += _playerController.gameObject.transform.forward * .2f;
+            }
         }
     }
 }

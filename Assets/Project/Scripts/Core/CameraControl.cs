@@ -1,37 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
+using Project.Scripts.Utils;
 using UnityEngine;
 
-public class CameraControl : MonoBehaviour
+namespace Project.Scripts.Core
 {
-    public Vector3 aradakifark;
-    OnTriggers onTriggers;
-    public GameObject player;
-    public Camera cam;
-    // Start is called before the first frame update
-    void Start()
+    public class CameraControl : MonoBehaviour
     {
-        onTriggers = FindObjectOfType<OnTriggers>();
-        aradakifark = transform.position - player.transform.position;
-    }
+        public Vector3 aradakifark;
+        [SerializeField]private OnTriggers _onTriggers;
+        [SerializeField]private Camera cam;
+        [SerializeField]private PlayerController _playerController;
+        // Start is called before the first frame update
+        void Start()
+        {
+
+            aradakifark = transform.position - _playerController.gameObject.transform.position;
+        }
 
    
-    // Update is called once per frame
-    void Update()
-    {
-        if (onTriggers.gameOver)
+        // Update is called once per frame
+        void Update()
         {
-           
-            transform.position = player.transform.position + aradakifark;
-            cam.fieldOfView = 60;
-            // transform.rotation = player.transform.rotation;
-
+            if (_onTriggers.gameOver)
+            {
+                transform.position = _playerController.gameObject.transform.position + aradakifark;
+                cam.fieldOfView = 60;
+            }
+            else
+            {
+                transform.position = _playerController.gameObject.transform.position + aradakifark;
+            }
+            _playerController.SideMove();
         }
-        else
-        {
-            transform.position = player.transform.position + aradakifark;
-        }
-        
     }
 }

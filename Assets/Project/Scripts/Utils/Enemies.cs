@@ -1,52 +1,44 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
+using Project.Scripts.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Project.Scripts.Utils
 {
-    
     public class Enemies : MonoBehaviour
     {
-        private GameObject player;
-        public int enemyhp = 1;
+        private PlayerController _playerController;
         public float speed;
-        public Animator animator;
-        public List<GameObject> drops = new List<GameObject>();
         public GameObject reward;
         public bool dead;
- 
-        void Start()
+        public Animator animator;
+
+        private void Awake()
         {
+            _playerController = FindObjectOfType<PlayerController>();
             animator = GetComponent<Animator>();
-            player = GameObject.FindGameObjectWithTag("Player");
-            transform.LookAt(player.transform);
+            transform.LookAt(_playerController.gameObject.transform);
         }
-
-       public void death()
+       public void Death()
         {
-            animator.CrossFade("DeadAnim", 0.03f); 
-            dead = true;
-            transform.DOScale(Vector3.zero * 0, 2f).SetEase(Ease.InOutBack).OnComplete(spawnreward);
+            animator.CrossFade("DeadAnim", 0.03f);
+            dead=true;
+            transform.DOScale(Vector3.one * 0, 1f).SetEase(Ease.OutBounce).OnComplete(SpawnReward);
         }
 
-        void spawnreward()
+        private void SpawnReward()
         {
             Destroy(gameObject);
             Instantiate(reward, transform.position + new Vector3(0,3,0), Quaternion.Euler(90,0,0));
-
         }
-        void Update()
+
+        private void Update()
         {
-            if (dead == false)
-            {
-                transform.LookAt(player.transform);
+            if (dead) return;
+                transform.LookAt(_playerController.gameObject.transform.position);
                 transform.position += transform.forward * speed;
-            }
-            else
-            {
-            }
+            
+         
         }
     }
 

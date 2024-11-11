@@ -1,26 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using MainController;
+using Project.Scripts.Core;
+using Project.Scripts.Utils;
 using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    OnTriggers playerController;
-    private GameObject playerobject;
+    private OnTriggers _onTriggers;
+    private PlayerController _playercontroller;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        playerobject = GameObject.FindGameObjectWithTag("Player");
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<OnTriggers>();
+        _onTriggers = FindObjectOfType<OnTriggers>();
+        _playercontroller = FindObjectOfType<PlayerController>();
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        playerController.coincount++;
-        playerController.cointext.text = playerController.coincount + "";
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _onTriggers.coincount++;
+        _onTriggers.cointext.text = _onTriggers.coincount + "";
     }
 }

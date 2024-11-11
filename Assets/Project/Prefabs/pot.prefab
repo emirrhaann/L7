@@ -157,3 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c553a097997ba8c46b3dbf793b2187bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onTriggers: {fileID: 8820445145388709010, guid: 0f29fb64ab55e3441be1c0f02b4b7e4f,
+    type: 3}
+  playercontroller: {fileID: 7707996701800874861, guid: 0f29fb64ab55e3441be1c0f02b4b7e4f,
+    type: 3}

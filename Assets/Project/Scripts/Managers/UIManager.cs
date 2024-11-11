@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Project.Scripts.Utils;
 using TMPro;
 using UnityEngine;
 public class UIManager : MonoSingleton<UIManager>
@@ -56,7 +57,7 @@ public class UIManager : MonoSingleton<UIManager>
         if (OnTriggers.coincount >= 7)
         {
             OnTriggers.coincount -= 7;
-            OnTriggers.Damage = 15;
+            OnTriggers.damage = 15;
         }
     }
 }

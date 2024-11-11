@@ -2,37 +2,36 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using MainController;
+using Project.Scripts.Core;
+using Project.Scripts.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Buff : MonoBehaviour
 {
-    OnTriggers playerController;
-    private GameObject playerobject;
-    
-    // Start is called before the first frame update
-    void Start()
+    private OnTriggers _onTriggers;
+    private PlayerController _playercontroller;
+
+    private void Start()
     {
-        
-        playerobject = GameObject.FindGameObjectWithTag("Player");
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<OnTriggers>();
-        
+        _onTriggers = FindObjectOfType<OnTriggers>();
+        _playercontroller = FindObjectOfType<PlayerController>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (playerController.hp != 100)
+        if (_onTriggers.hp != 100)
         {
-            playerController.hp += 20;
-            playerController.hptext.text = playerController.hp + "";
+            _onTriggers.hp += 20;
+            _onTriggers.hptext.text = _onTriggers.hp + "";
         }
-        if (playerController.hp >= 50)
+        if (_onTriggers.hp >= 50)
         {
-            playerController.hptext.color = Color.green;
+            _onTriggers.hptext.color = Color.green;
         }
         else
         {
-            playerController.hptext.color = Color.red;
+            _onTriggers.hptext.color = Color.red;
         }
     }
 
