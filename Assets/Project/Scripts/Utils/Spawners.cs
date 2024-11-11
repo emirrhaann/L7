@@ -9,9 +9,9 @@ namespace Project.Scripts.Utils
         [SerializeField]private GameObject mobspawn;
         void Awake()
         {
-            Instantiate(mobspawn, spawners[4].transform.position, mobspawn.transform.rotation);
-            Instantiate(mobspawn, spawners[2].transform.position, mobspawn.transform.rotation);
-            Instantiate(mobspawn, spawners[0].transform.position, mobspawn.transform.rotation); 
+          //  Instantiate(mobspawn, spawners[4].transform.position, mobspawn.transform.rotation);
+          //  Instantiate(mobspawn, spawners[2].transform.position, mobspawn.transform.rotation);
+          //  Instantiate(mobspawn, spawners[0].transform.position, mobspawn.transform.rotation); 
             mobspawn.gameObject.tag = "Enemy";
         }
     }

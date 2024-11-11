@@ -672,7 +672,7 @@ Transform:
   m_GameObject: {fileID: 440478045}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 51.46, y: 1.2736045, z: -1.52}
+  m_LocalPosition: {x: 41.8, y: 1.2736045, z: -1.52}
   m_LocalScale: {x: 1, y: 1, z: 6.945676}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -692,6 +692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onTriggers: {fileID: 1773245639023856910}
   playercontroller: {fileID: 4863231424987746179}
+  floatingJoystick: {fileID: 455566113}
   flytext: {fileID: 413125750}
 --- !u!224 &455566112 stripped
 RectTransform:
@@ -3315,6 +3316,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86cff2df56a5aa64e97549bf05201bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &4863231424987746181 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 6346243005718388775, guid: 0f29fb64ab55e3441be1c0f02b4b7e4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5652644267494667529}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4886074927480546165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3553,6 +3560,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontColor.r
       value: 0.104001164
+      objectReference: {fileID: 0}
+    - target: {fileID: 7707996701800874861, guid: 0f29fb64ab55e3441be1c0f02b4b7e4f,
+        type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 4863231424987746181}
+    - target: {fileID: 7707996701800874861, guid: 0f29fb64ab55e3441be1c0f02b4b7e4f,
+        type: 3}
+      propertyPath: flyspeed
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 7707996701800874861, guid: 0f29fb64ab55e3441be1c0f02b4b7e4f,
         type: 3}

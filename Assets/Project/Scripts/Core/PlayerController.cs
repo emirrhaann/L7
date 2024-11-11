@@ -7,14 +7,10 @@ namespace Project.Scripts.Core
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField]
-        private float firstarealimitmin;
-        [SerializeField]
-        private float firstarealimitmax;
-        [SerializeField]
-        private float secondarealimitmin;
-        [SerializeField]
-        private float secondarealimitmax;
+        public float firstarealimitmin;
+        public float firstarealimitmax;
+        public float secondarealimitmin;
+        public float secondarealimitmax;
         private RaycastHit _hit;
         public bool control;
         public Animator animator;
@@ -24,16 +20,15 @@ namespace Project.Scripts.Core
         public bool pas;
         public FloatingJoystick floatingJoystick;
         [SerializeField]private OnTriggers onTriggers;
-        public new Rigidbody rigidbody;
         public int deadcount;
+        public Rigidbody rb;
+        [SerializeField] public float flyspeed;
 
         void Awake()
         {
             TapInputEnable();
-           // _tapped = false;
-           // onTriggers = FindObjectOfType<OnTriggers>(); 
            animator = GetComponent<Animator>();
-           rigidbody = GetComponent<Rigidbody>();
+           rb = GetComponent<Rigidbody>();
         }
         private void TapInputEnable()
         {
@@ -106,7 +101,8 @@ namespace Project.Scripts.Core
             yield return new WaitForSeconds(1.5f);
             control = false;
         }
-        void Update()
+
+        private void Update()
         {
             if (onTriggers.gameOver == false)
             {
@@ -148,7 +144,8 @@ namespace Project.Scripts.Core
             {
                 Vector3 direction = Vector3.up * floatingJoystick.Vertical +
                                     Vector3.forward * -floatingJoystick.Horizontal;
-                transform.position += (direction * 0.14f);
+                transform.position += (direction * flyspeed);
+                Debug.Log(direction);
                 direction.x += 0.25f;
                 transform.rotation = Quaternion.LookRotation(direction);
             }

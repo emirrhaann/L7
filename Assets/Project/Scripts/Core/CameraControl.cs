@@ -29,7 +29,10 @@ namespace Project.Scripts.Core
             {
                 transform.position = _playerController.gameObject.transform.position + aradakifark;
             }
-            _playerController.SideMove();
+            if (!_onTriggers.onJoystick || !_onTriggers.gameOver) return;
+            {
+                
+            }
         }
     }
 }
