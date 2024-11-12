@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Project.Scripts.Core;
 using UnityEngine;
@@ -10,7 +9,6 @@ namespace Project.Scripts.Utils
         private Enemies _enemies;
         private PlayerController _playerController;
         [SerializeField] private float speed;
-
         private void Start()
         {
             _enemies = FindObjectOfType<Enemies>();
@@ -29,7 +27,6 @@ namespace Project.Scripts.Utils
         {
             if (other.gameObject.CompareTag(tag = "Enemy"))
             {
-                _enemies.Death();
                 _playerController.deadcount++;
                 Destroy(gameObject);
             }

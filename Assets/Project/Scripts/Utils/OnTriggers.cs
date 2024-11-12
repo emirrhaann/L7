@@ -24,7 +24,6 @@ namespace Project.Scripts.Utils
         public GameObject playerattach;
         public bool onJoystick;
         public GameObject joysui;
-
         private void Awake()
         {
             passed = false;
@@ -39,7 +38,14 @@ namespace Project.Scripts.Utils
 
         private void Update()
         {
-
+            if (hp >= 50)
+            {
+                hptext.color = Color.green;
+            }
+            else
+            {
+                hptext.color = Color.red;
+            }
         }
     }
 }

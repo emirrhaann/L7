@@ -405,8 +405,8 @@ Transform:
   m_GameObject: {fileID: 292644950}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 44.32, y: 0.45360452, z: -1.6951578}
-  m_LocalScale: {x: 20.723402, y: 0.5, z: 21.020134}
+  m_LocalPosition: {x: 67.79, y: 0.43, z: -1.6951578}
+  m_LocalScale: {x: 24.663242, y: 0.5, z: 21.020134}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1192131932}
@@ -594,7 +594,7 @@ GameObject:
   - component: {fileID: 440478046}
   - component: {fileID: 440478049}
   m_Layer: 0
-  m_Name: VictoryLine
+  m_Name: FlyLine
   m_TagString: VictoryLine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -672,7 +672,7 @@ Transform:
   m_GameObject: {fileID: 440478045}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 41.8, y: 1.2736045, z: -1.52}
+  m_LocalPosition: {x: 78.89, y: 1.2736045, z: -1.52}
   m_LocalScale: {x: 1, y: 1, z: 6.945676}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1012,7 +1012,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.12651977, y: 0.6956958, z: -0.12651974, w: 0.69569594}
-  m_LocalPosition: {x: 26.82, y: 10.94, z: 0}
+  m_LocalPosition: {x: 44.97, y: 8.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1031,9 +1031,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aradakifark: {x: 0, y: 0, z: 0}
-  _onTriggers: {fileID: 1773245639023856910}
+  onTriggers: {fileID: 1773245639023856910}
   cam: {fileID: 963194227}
-  _playerController: {fileID: 4863231424987746179}
+  playerController: {fileID: 4863231424987746179}
 --- !u!1 &1192131931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1175,7 +1175,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: fc50e49027134ab4aa49cb6cc34be0dc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 51.59
+      value: 78.78
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc50e49027134ab4aa49cb6cc34be0dc,
         type: 3}
@@ -1357,7 +1357,7 @@ GameObject:
   - component: {fileID: 1976443497}
   - component: {fileID: 1976443499}
   m_Layer: 0
-  m_Name: FinishLine
+  m_Name: BonusLine
   m_TagString: FinishLine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1372,7 +1372,7 @@ Transform:
   m_GameObject: {fileID: 1976443495}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35.35, y: 1.2736045, z: -1.6951578}
+  m_LocalPosition: {x: 60.4, y: 1.2736045, z: -1.6951578}
   m_LocalScale: {x: 1, y: 1, z: 7.861363}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1456,6 +1456,7 @@ MonoBehaviour:
   spawner: {fileID: 4876782554279214113, guid: accb09691c7a48146a4753b93433e8c5, type: 3}
   playercontroller: {fileID: 4863231424987746179}
   onTriggers: {fileID: 1773245639023856910}
+  playerCamera: {fileID: 963194227}
 --- !u!1 &1996571148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,8 +1691,8 @@ Transform:
   m_GameObject: {fileID: 2011244212}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.98774, y: 0.45360452, z: -1.6951578}
-  m_LocalScale: {x: 45.926033, y: 0.5, z: 6.7523994}
+  m_LocalPosition: {x: 21.9, y: 0.45360452, z: -1.6951578}
+  m_LocalScale: {x: 67.10252, y: 0.5, z: 6.9828286}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1192131932}
@@ -3569,8 +3570,13 @@ PrefabInstance:
     - target: {fileID: 7707996701800874861, guid: 0f29fb64ab55e3441be1c0f02b4b7e4f,
         type: 3}
       propertyPath: flyspeed
-      value: 0.08
+      value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 7707996701800874861, guid: 0f29fb64ab55e3441be1c0f02b4b7e4f,
+        type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 963194227}
     - target: {fileID: 7707996701800874861, guid: 0f29fb64ab55e3441be1c0f02b4b7e4f,
         type: 3}
       propertyPath: floatingJoystick
@@ -3579,7 +3585,7 @@ PrefabInstance:
     - target: {fileID: 7833470069835159187, guid: 0f29fb64ab55e3441be1c0f02b4b7e4f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.027737
+      value: 55.17774
       objectReference: {fileID: 0}
     - target: {fileID: 7833470069835159187, guid: 0f29fb64ab55e3441be1c0f02b4b7e4f,
         type: 3}

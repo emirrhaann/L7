@@ -23,9 +23,10 @@ namespace Project.Scripts.Core
         public int deadcount;
         public Rigidbody rb;
         [SerializeField] public float flyspeed;
+        [SerializeField] private Camera playerCamera;
 
-        void Awake()
-        {
+        private void Awake()
+        { 
             TapInputEnable();
            animator = GetComponent<Animator>();
            rb = GetComponent<Rigidbody>();
@@ -55,12 +56,10 @@ namespace Project.Scripts.Core
         }
         private void TapDown()
         {
-            if (_tapped == false)
-            {
-                UIManager.Instance.ShowPanel(PanelType.GamePlay);
-                onTriggers.hptext.gameObject.SetActive(true);
-                _tapped = true;
-            }
+            if (_tapped) return;
+            UIManager.Instance.ShowPanel(PanelType.GamePlay);
+            onTriggers.hptext.gameObject.SetActive(true);
+            _tapped = true;
         }
 
         private void StartMove()
@@ -68,7 +67,8 @@ namespace Project.Scripts.Core
             transform.position += transform.forward * 0.1f;
             animator.CrossFade("Running", 0f);
         }
-        public void SideMove()
+
+        private void SideMove()
         {
             if (onTriggers.passed == false)
             {
@@ -81,7 +81,7 @@ namespace Project.Scripts.Core
             }
             else
             {
-                transform.position = new Vector3(Mathf.Clamp(transform.position.x, 41.4f, 57f),
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x, 61.6f, 85.6f),
                     transform.position.y,
                     Mathf.Clamp(transform.position.z,
                         secondarealimitmin,
@@ -92,7 +92,6 @@ namespace Project.Scripts.Core
 
         private IEnumerator Attack(Vector3 target)
         {
-            
             animator.CrossFade("FireAnim", 0.04f);
             yield return new WaitForSeconds(0.05f);
             animator.CrossFade("Running", 0.04f);
@@ -111,11 +110,10 @@ namespace Project.Scripts.Core
             Physics.Raycast(new Vector3(transform.position.x,
                 transform.position.y + 2,
                 transform.position.z), transform.forward * 20, out _hit); 
-            if (_hit.collider /*!= null*/)
+            if (_hit.collider)
             {
                 if (onTriggers.passed)
                 {
-                    attach.gameObject.SetActive(true);
                     if (_hit.collider.gameObject.CompareTag("Enemy") && control == false && onTriggers.onJoystick)
                     {
                         StartCoroutine(Attack(_hit.collider.gameObject.transform.position + new Vector3(0,2,0)));
@@ -138,6 +136,7 @@ namespace Project.Scripts.Core
                 transform.position += (direction * 0.14f);
                 direction.x += 0.25f;
                 transform.rotation = Quaternion.LookRotation(direction);
+
             }
 
             if (!onTriggers.onJoystick || !onTriggers.gameOver) return;
@@ -145,10 +144,12 @@ namespace Project.Scripts.Core
                 Vector3 direction = Vector3.up * floatingJoystick.Vertical +
                                     Vector3.forward * -floatingJoystick.Horizontal;
                 transform.position += (direction * flyspeed);
-                Debug.Log(direction);
-                direction.x += 0.25f;
-                transform.rotation = Quaternion.LookRotation(direction);
-            }
+                direction.y +=5;
+                transform.rotation.SetLookRotation(direction);
+                transform.rotation = new Quaternion(direction.x,
+                  direction.y, 
+                    direction.z, 5);    
+            }   
         }
     }
 }

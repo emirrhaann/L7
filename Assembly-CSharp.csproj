@@ -50,6 +50,7 @@
     <Compile Include="Assets\Project\Scripts\Core\LevelObject.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
     <Compile Include="Assets\Project\Scripts\Utils\Coin.cs" />
+    <Compile Include="Assets\Project\Scripts\Utils\BonusLine.cs" />
     <Compile Include="Assets\Project\Scripts\Utils\InputPanel.cs" />
     <Compile Include="Assets\Project\Scripts\Utils\Debuff.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
@@ -57,10 +58,10 @@
     <Compile Include="Assets\Project\Scripts\Utils\Buff.cs" />
     <Compile Include="Assets\Project\Scripts\Core\PlayerController.cs" />
     <Compile Include="Assets\Project\Scripts\Utils\Bullet.cs" />
+    <Compile Include="Assets\Project\Scripts\Utils\FlyLine.cs" />
     <Compile Include="Assets\Project\Scripts\Managers\LevelManager.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Project\Scripts\Utils\Enemies.cs" />
-    <Compile Include="Assets\Project\Scripts\Utils\VictoryLine.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
     <Compile Include="Assets\Project\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Project\Scripts\Utils\PropMove.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="Assets\Project\Scripts\Utils\MonoSingleton.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
     <Compile Include="Assets\Project\Scripts\Utils\OnTriggers.cs" />
-    <Compile Include="Assets\Project\Scripts\Utils\FinishLine.cs" />
     <Compile Include="Assets\Project\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
     <Compile Include="Assets\Project\Scripts\Utils\RewardPropMove.cs" />

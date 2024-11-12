@@ -20,7 +20,6 @@ namespace Joystick_Pack.Scripts.Joysticks
             background.gameObject.SetActive(false);
   
         }
-
         public override void OnPointerDown(PointerEventData eventData)
         {
             background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
@@ -33,29 +32,26 @@ namespace Joystick_Pack.Scripts.Joysticks
             else
             {
                 _animator.CrossFade("Running", 0.04f);
-
             }
             _pointed = true;
         }
-
         public override void OnPointerUp(PointerEventData eventData)
         {
             background.gameObject.SetActive(false);
             base.OnPointerUp(eventData);
             if (_ontrigger.gameOver)
             {
-                _animator.CrossFade("Fly", 0.04f);
+                _animator.CrossFade("FlyIdle", 0.1f);
             }
             else
             {
                 _animator.CrossFade("Blend Tree", 0.01f);
 
             }
-        
             _pointed = false;
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             if (_pointed && _ontrigger.gameOver )
             {   
