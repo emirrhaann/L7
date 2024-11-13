@@ -88,6 +88,12 @@ namespace Project.Scripts.Core
                         secondarealimitmax)
                 );
             }
+
+            if (onTriggers.gameOver)
+            {
+                
+            }
+        
         }
 
         private IEnumerator Attack(Vector3 target)
@@ -105,7 +111,14 @@ namespace Project.Scripts.Core
         {
             if (onTriggers.gameOver == false)
             {
+                
                 SideMove();
+            }
+            else
+            {
+                transform.position = new Vector3(transform.position.x,
+                    Mathf.Clamp(transform.position.y, .2f,10),
+                    transform.position.z);
             }
             Physics.Raycast(new Vector3(transform.position.x,
                 transform.position.y + 2,
@@ -133,12 +146,19 @@ namespace Project.Scripts.Core
             {
                 Vector3 direction = Vector3.right * floatingJoystick.Vertical +
                                     Vector3.forward * -floatingJoystick.Horizontal;
+                if (direction.x != 0 && direction.z != 0)
+                {
+                    PlayerPrefs.SetFloat("direction.x", floatingJoystick.Vertical);
+                    PlayerPrefs.SetFloat("direction.z", floatingJoystick.Horizontal);
+                }
                 transform.position += (direction * 0.14f);
                 direction.x += 0.25f;
-                transform.rotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.LookRotation((new Vector3(PlayerPrefs.GetFloat("direction.x"), 
+                    direction.y,
+                    -PlayerPrefs.GetFloat("direction.z"))));
 
             }
-
+    
             if (!onTriggers.onJoystick || !onTriggers.gameOver) return;
             {
                 Vector3 direction = Vector3.up * floatingJoystick.Vertical +

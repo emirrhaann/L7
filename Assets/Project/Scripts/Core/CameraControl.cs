@@ -34,20 +34,16 @@ namespace Project.Scripts.Core
                             playerController.firstarealimitmin,
                             playerController.firstarealimitmax)
                     );
+                    transform.position = playerController.gameObject.transform.position + aradakifark;
                 }
                 else
                 {
-                    transform.position = new Vector3(Mathf.Clamp(transform.position.x, 61.6f, 85.6f),
-                        transform.position.y,
-                        Mathf.Clamp(transform.position.z,
-                            playerController.secondarealimitmin,
-                            playerController.secondarealimitmax)
-                    );
+                    var vector3 = transform.position;
+                    vector3.z = playerController.gameObject.transform.position.z + aradakifark.z;
+                    transform.position = vector3;
                 }
                 
             }
-            transform.position = playerController.gameObject.transform.position + aradakifark;
-         //   transform.rotation = playerController.gameObject.transform.rotation;
         }
         
     }

@@ -42,11 +42,12 @@ namespace Project.Scripts.Utils
         private void OnTriggerEnter(Collider other)
         {
             StartCoroutine(nameof(Changing));
-       //     Cameracont();
+            playerCamera.transform.DOPath(new []{playerCamera.transform.position, new Vector3(49.8400002f,14.1800003f,0)}, 1f);
+           // Cameracont();
         }
-        /*private void Cameracont()
+        private void Cameracont()
         {
-            playerCamera.transform.rotation = 
-        }*/
+            playerCamera.transform.position = new Vector3(49.8400002f,14.1800003f,0);
+        }
     }
 }

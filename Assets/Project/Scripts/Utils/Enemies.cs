@@ -34,9 +34,9 @@ namespace Project.Scripts.Utils
             animator.CrossFade("DeadAnim", 0.03f);
             dead=true;
             _particles.Play();
-            yield return new WaitForSeconds(0.9f);
+            yield return new WaitForSeconds(0.4f);
             _particles.Pause();
-            yield return new WaitForSeconds(1.1f);
+            yield return new WaitForSeconds(0.9f);
             Destroy(gameObject);
             Instantiate(reward, transform.position + new Vector3(0,3,0), Quaternion.Euler(90,0,0));
         }
